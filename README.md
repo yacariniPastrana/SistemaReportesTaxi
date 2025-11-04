@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Sistema de Reportes para Taxis
 
 ## Descripción del Proyecto
