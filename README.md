@@ -24,10 +24,10 @@ Permite registrar:
 ---
 
 ## Tecnologías Usadas
-**Frontend:** Next.js + TailwindCSS + Chart.js  
+**Frontend:** Angular + TailwindCSS + Chart.js  
 **Backend:** Spring Boot (Java) + JPA + JWT  
 **Base de Datos:** PostgreSQL  
-**Control de Versiones:** GitHub
+**Control de Versiones:** GitHub (repositorio publico para portafolio)
 
 ---
 
@@ -42,7 +42,7 @@ El documento completo de especificación de requerimientos (SRS) está disponibl
 2. Backend con autenticación y CRUD de registros diarios  
 3. Frontend con login y formularios  
 4. Reportes visuales y exportación  
-5. Testing y despliegue
+5. Testing y despliegue (Netlify + Render o Railway).
 
 ---
 

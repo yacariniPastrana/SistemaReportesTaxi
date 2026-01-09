@@ -63,7 +63,7 @@ Tablas principales:
 ---
 
 ## Stack Tecnológico
-- **Frontend:** Next.js + TailwindCSS + Chart.js
+- **Frontend:** Angular + TailwindCSS + Chart.js
 - **Backend:** Spring Boot (Java) + JPA + JWT
 - **Base de Datos:** PostgreSQL
 - **Control de Versiones:** GitHub (repositorio público para portafolio)

@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # --- SERVICIO 1: BASE DE DATOS ---
+  db:
+    image: postgres:17-alpine
+    container_name: taxi-db
+    environment:
+      POSTGRES_DB: DBReportesTaxi
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # --- SERVICIO 2: BACKEND JAVA ---
+  backend:
+    build: ./backend
+    container_name: taxi-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/DBReportesTaxi
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
