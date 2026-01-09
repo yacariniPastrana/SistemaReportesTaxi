@@ -1,0 +1,66 @@
+-- 1. Tabla de Usuarios
+CREATE TABLE TBUsuario (
+IDUsuario SERIAL PRIMARY KEY,
+Nombre VARCHAR(100) NOT NULL,
+Correo VARCHAR(100) UNIQUE NOT NULL,
+Contrasena VARCHAR(255) NOT NULL,
+Rol VARCHAR(20) NOT NULL CHECK (Rol IN ('Administrador', 'Propietario', 'Conductor')),
+FechaCreacion TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+-- 2. Tabla de Propietarios
+CREATE TABLE TBPropietario (
+IDPropietario SERIAL PRIMARY KEY,
+Telefono VARCHAR(100),
+IDUsuario INTEGER UNIQUE NOT NULL,
+FOREIGN KEY (IDUsuario) REFERENCES TBUsuario(IDUsuario) ON DELETE CASCADE
+);
+-- 3. Tabla de Vehiculos
+CREATE TABLE TBVehiculo (
+IDVehiculo SERIAL PRIMARY KEY,
+Placa VARCHAR(10) UNIQUE NOT NULL,
+Marca VARCHAR(50),
+Modelo VARCHAR(50),
+IDPropietario INTEGER NOT NULL,
+FOREIGN KEY (IDPropietario) REFERENCES TBPropietario (IDPropietario)
+);
+-- 4. Tabla de Conductores (TBConductor)
+CREATE TABLE TBConductor (
+IDConductor SERIAL PRIMARY KEY,
+Telefono VARCHAR(100),
+MetasJSON JSONB,
+IDUsuario INTEGER UNIQUE NOT NULL,
+FOREIGN KEY (IDUsuario) REFERENCES TBUsuario (IDUsuario) ON DELETE CASCADE
+);
+-- 5. Tabla de Prestamos (TBPrestamo)
+CREATE TABLE TBPrestamo (
+IDPrestamo SERIAL PRIMARY KEY,
+Fecha DATE NOT NULL,
+Monto NUMERIC(10, 2) NOT NULL CHECK (Monto > 0),
+Descripcion TEXT,
+IDPropietario INTEGER NOT NULL,
+IDConductor INTEGER NOT NULL,
+FOREIGN KEY (IDPropietario) REFERENCES TBPropietario (IDPropietario),
+FOREIGN KEY (IDConductor) REFERENCES TBConductor (IDConductor)
+);
+-- 6. Tabla de Registro Diario (TBRegistroDiario)
+CREATE TABLE TBRegistroDiario (
+IDRegistroDiario SERIAL PRIMARY KEY,
+Fecha DATE NOT NULL,
+IngresoTotal NUMERIC(10, 2) NOT NULL,
+GastoCombustible NUMERIC(10, 2) NOT NULL,
+Alquiler NUMERIC(10, 2) NOT NULL DEFAULT 60.00,
+GananciaNeta NUMERIC(10,2),
+IDConductor INTEGER NOT NULL,
+IDVehiculo INTEGER NOT NULL,
+FechaRegistro TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (IDConductor) REFERENCES TBConductor (IDConductor),
+FOREIGN KEY (IDVehiculo) REFERENCES TBVehiculo (IDVehiculo)
+);
+-- 7. Tabla de Historial (TBHistorial)
+CREATE TABLE TBHistorial (
+IDHistorial SERIAL PRIMARY KEY,
+IDUsuario INTEGER NOT NULL,
+Accion TEXT NOT NULL,
+Fecha TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (IDUsuario) REFERENCES TBUsuario ON DELETE CASCADE
+);
