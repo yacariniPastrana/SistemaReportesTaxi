@@ -56,4 +56,5 @@ Desarrollador en formación – Computación e Informática (Cibertec)
 
 ## Estado del Proyecto
 En desarrollo — Fase 1: Modelado y configuración inicial.
+
 En desarrollo — Fase 2: Infraestructura Dockerizada y Construcción del Backend.
