@@ -5,11 +5,27 @@
     "packageManager": "npm",
     "analytics": "0260087f-679e-4cc8-9644-44bbf43472fb"
   },
-  "newProjectRoot": "projects",
   "projects": {
     "SistemaReportesTaxi": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "skipTests": true,
+          "inlineStyle": false,
+          "inlineTemplate": false,
+          "type": "component",
+          "style": "css"
+        },
+        "@schematics/angular:class": {
+          "skipTests": true,
+          "type": "class"
+        },
+        "@schematics/angular:service": {
+          "skipTests": true,
+          "flat": false,
+          "type": "service"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -27,12 +43,7 @@
             ],
             "styles": [
               "src/styles.css"
-            ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {
