@@ -10,7 +10,7 @@ export class AuthService {
   
   private http = inject(HttpClient);
   
-  private apiUrl = 'http://localhost:4200/auth';
+  private apiUrl = 'http://localhost:8080/auth';
   
   constructor() {}
 
