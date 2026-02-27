@@ -15,7 +15,7 @@ public class SecurityConfig {
 		http
 			.csrf(csrf -> csrf.disable()) // Necesario para Angular
 			.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/auth/login").permitAll() // conexion con el login
+				.requestMatchers("/api/auth/**").permitAll() // conexion con el login y register
 				.anyRequest().authenticated()
 				);
 		return http.build();

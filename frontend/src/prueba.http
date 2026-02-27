@@ -1,0 +1,36 @@
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+    "nombre": "Jean Yacarini",
+    "correo": "admin@taxi.com",
+    "contrasena": "123456",
+    "rol": "Administrador"
+}
+
+### PRUEBA 1: Login Exitoso (Todo correcto)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+    "correo": "admin@taxi.com",
+    "contrasena": "123456"
+}
+
+### PRUEBA 2: Error de Contraseña
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+    "correo": "admin@taxi.com",
+    "contrasena": "claveequivocada"
+}
+
+### PRUEBA 3: Correo no existe
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+    "correo": "fantasma@taxi.com",
+    "contrasena": "123456"
+}
