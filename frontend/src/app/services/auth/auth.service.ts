@@ -24,6 +24,10 @@ export class AuthService {
     );
   }
 
+  register(usuario: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, usuario);
+  }
+
   private handleError(error: HttpErrorResponse){
     if (error.status === 0) {
       console.error('Error de red:', error.error);

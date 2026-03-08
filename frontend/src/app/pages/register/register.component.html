@@ -1,0 +1,57 @@
+<div class="login-wrapper">
+  <div class="login-card" style="max-width: 450px;"> <h2>Nuevo Usuario</h2>
+    <p>Complete los datos para registrarse</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="nombre">Nombre Completo</label>
+        <input type="text" id="nombre" formControlName="nombre" placeholder="Ej: Jean Yacarini">
+        <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="error-msg">
+          <small *ngIf="nombre?.errors?.['required']">El nombre es obligatorio.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="correo">Correo Electrónico</label>
+        <input type="email" id="correo" formControlName="correo" placeholder="ejemplo@taxi.com">
+        <div *ngIf="correo?.invalid && (correo?.dirty || correo?.touched)" class="error-msg">
+          <small *ngIf="correo?.errors?.['required']">El correo es obligatorio.</small>
+          <small *ngIf="correo?.errors?.['email']">Ingrese un correo válido.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" formControlName="contrasena" placeholder="Mínimo 6 caracteres">
+        <div *ngIf="contrasena?.invalid && (contrasena?.dirty || contrasena?.touched)" class="error-msg">
+          <small *ngIf="contrasena?.errors?.['required']">La contraseña es obligatoria.</small>
+          <small *ngIf="contrasena?.errors?.['minlength']">Debe tener al menos 6 caracteres.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="rol">Rol en el Sistema</label>
+        <select id="rol" formControlName="rol" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+          <option value="" disabled selected>Seleccione un rol...</option>
+          <option value="Administrador">Administrador</option>
+          <option value="Propietario">Propietario</option>
+          <option value="Conductor">Conductor</option>
+        </select>
+        <div *ngIf="rol?.invalid && (rol?.dirty || rol?.touched)" class="error-msg">
+          <small *ngIf="rol?.errors?.['required']">Debe seleccionar un rol.</small>
+        </div>
+      </div>
+
+      <p *ngIf="mensajeError" class="alert-danger" style="color: red;">{{mensajeError}}</p>
+      <p *ngIf="mensajeExito" class="alert-success" style="color: green; font-weight: bold;">{{mensajeExito}}</p>
+
+      <button type="submit" [disabled]="!registerForm.valid" class="btn-primary" style="margin-top: 15px;">CREAR CUENTA</button>
+      
+      <div class="register-section" style="margin-top: 15px; text-align: center; border-top: 1px solid #ccc; padding-top: 15px;">
+        <button type="button" (click)="irALogin()" class="btn-secondary" style="background-color: transparent; border: none; color: #007bff; cursor: pointer; text-decoration: underline;">Volver al Login</button>
+      </div>
+
+    </form>
+  </div>
+</div>

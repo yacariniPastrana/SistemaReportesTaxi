@@ -19,20 +19,33 @@ export class LoginComponent {
   private router = inject(Router);
 
   loginForm = this.fb.group({
-    username: ['', [Validators.required]],
-    password: ['', [Validators.required]]
+    correo: ['', [Validators.required, Validators.email]],
+    contrasena: ['', [Validators.required]]
   });
 
   errorMessage: string = '';
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const credentials: LoginRequest = this.loginForm.value as LoginRequest;
+      const credencialesParaBackend: LoginRequest = {
+        correo: this.loginForm.value.correo || "",
+        contrasena: this.loginForm.value.contrasena || ""
+      };
 
-      this.authService.login(credentials).subscribe({
-        next: (userData) => {
-          console.log('Login exitoso');
-          this.router.navigate(['/dashboard']);
+      this.errorMessage = "";
+
+      this.authService.login(credencialesParaBackend).subscribe({
+        next: (respuestaBackend) => {
+          console.log("Login exitoso:", respuestaBackend);
+          this.router.navigate(["/dashboard"]);
+        },
+        error: (errorHttp) => {
+          console.error("Error en el login:", errorHttp);
+          if (errorHttp.error && errorHttp.error.mensaje) {
+            this.errorMessage = errorHttp.error.mensaje;
+          } else {
+            this.errorMessage = "Error de conexion con el servidor.";
+          }
         }
       });
     } else {
@@ -40,6 +53,11 @@ export class LoginComponent {
       alert('Por favor complete los campos');
     }
   }
-  get username() { return this.loginForm.get('username');}
-  get password() { return this.loginForm.get('password');}
+
+  irARegistro(){
+    this.router.navigate(['/register']);
+  }
+
+  get correo() { return this.loginForm.get('correo');}
+  get contrasena() { return this.loginForm.get('contrasena');}
 }
